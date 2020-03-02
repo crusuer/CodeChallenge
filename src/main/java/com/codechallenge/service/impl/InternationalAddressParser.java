@@ -6,7 +6,8 @@ import com.codechallenge.vo.AddressVO;
 
 import java.util.regex.Matcher;
 
-import static com.codechallenge.utils.AddressRegexUtils.*;
+import static com.codechallenge.utils.AddressRegexUtils.INTERNATIONAL_ADDRESS;
+import static com.codechallenge.utils.AddressRegexUtils.getMatcher;
 
 public class InternationalAddressParser implements AddressParser {
     @Override

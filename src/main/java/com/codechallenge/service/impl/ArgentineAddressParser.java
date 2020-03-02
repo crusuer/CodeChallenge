@@ -6,14 +6,13 @@ import com.codechallenge.vo.AddressVO;
 
 import java.util.regex.Matcher;
 
-import static com.codechallenge.utils.AddressRegexUtils.GERMAN_ADDRESS;
+import static com.codechallenge.utils.AddressRegexUtils.ARGENTINE_ADDRESS;
 import static com.codechallenge.utils.AddressRegexUtils.getMatcher;
 
-public class GermanAddressParser implements AddressParser {
+public class ArgentineAddressParser implements AddressParser {
     @Override
     public AddressVO parse(String address) {
-
-        Matcher matcher = getMatcher(GERMAN_ADDRESS, address);
+        Matcher matcher = getMatcher(ARGENTINE_ADDRESS, address);
         if (matcher.matches()) {
             return new AddressVO(matcher.group(1), matcher.group(2));
         }

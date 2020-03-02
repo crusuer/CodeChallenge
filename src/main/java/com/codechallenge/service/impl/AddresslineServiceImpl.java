@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AddresslineServiceImpl implements AddresslineService {
     @Override
-    public AddressVO splitStreetAndNumber(String address) throws NoParserFoundException {
+    public AddressVO splitStreetAndNumber(String address) {
         if (address == null || address.isEmpty()) {
             throw new AddressNullOrEmptyException();
         }
@@ -27,11 +27,9 @@ public class AddresslineServiceImpl implements AddresslineService {
             return new GermanAddressParser();
         } else if (address.matches(AddressRegexUtils.INTERNATIONAL_ADDRESS)) {
             return new InternationalAddressParser();
-        } /*else if (address.matches(AddressRegexUtils.INTERNATIONAL_ADDRESS_WITH_TEXT_NUMBER)) {
-            return new InternationalAddressParser();
-        } else if (address.matches(AddressRegexUtils.ADDRESS_WITH_TEXT_NUMBER)) {
-            return new InternationalAddressParser();
-        } */else {
+        } else if (address.matches(AddressRegexUtils.ARGENTINE_ADDRESS)) {
+            return new ArgentineAddressParser();
+        } else {
             throw new NoParserFoundException(address);
         }
     }
