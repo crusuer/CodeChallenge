@@ -13,7 +13,7 @@ public class ApplicationRunner implements CommandLineRunner {
     private AddresslineService addresslineService;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) throws NotEnoughArgsException {
         if (args.length == 0) {
             throw new NotEnoughArgsException();
         }

@@ -1,6 +1,7 @@
 package com.codechallenge.service.impl;
 
-import com.codechallenge.Application;
+import com.codechallenge.exception.AddressNullOrEmptyException;
+import com.codechallenge.exception.NoParserFoundException;
 import com.codechallenge.service.AddresslineService;
 import com.codechallenge.vo.AddressVO;
 import org.junit.jupiter.api.Test;
@@ -10,9 +11,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Application.class)
+@SpringBootTest(classes = AddresslineServiceImpl.class)
 class AddresslineServiceImplTest {
 
     @Autowired
@@ -97,5 +99,33 @@ class AddresslineServiceImplTest {
 
         assertEquals("Calle 39", result.getStreet());
         assertEquals("No 1540", result.getHousenumber());
+    }
+
+    @Test
+    void testAddressWithoutParser() {
+        String address = "Hollywood street";
+
+        assertThrows(NoParserFoundException.class, () -> addresslineService.splitStreetAndNumber(address));
+    }
+
+    @Test
+    void testBlankAddress() {
+        String address = " ";
+
+        assertThrows(NoParserFoundException.class, () -> addresslineService.splitStreetAndNumber(address));
+    }
+
+    @Test
+    void testNullAddress() {
+        String address = null;
+
+        assertThrows(AddressNullOrEmptyException.class, () -> addresslineService.splitStreetAndNumber(address));
+    }
+
+    @Test
+    void testEmptyAddress() {
+        String address = "";
+
+        assertThrows(AddressNullOrEmptyException.class, () -> addresslineService.splitStreetAndNumber(address));
     }
 }
